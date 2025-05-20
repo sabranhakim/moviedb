@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CategorySeeder::class);
 
-        Movie::factory()->count(20)->create();
+        Movie::factory(10)->count(20)->create();
     }
 }
