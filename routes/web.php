@@ -7,6 +7,7 @@ Route::resource('movies', MovieController::class);
 
 Route::get('/', [MovieController::class, 'index']);
 
+Route::get('/movie/{id}/{slug}', [MovieController::class, 'detail']);
 
 Route::get('dashboard', function() {
     return view('movies.index');

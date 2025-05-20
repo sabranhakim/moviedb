@@ -74,5 +74,10 @@ class MovieController extends Controller
         $movie->delete();
         return redirect()->route('movies.index')->with('success', 'Movie deleted.');
     }
+
+    public function detail($id, $slug){
+        $movie = Movie::find($id);
+        return view('movies.detailmovie', compact('movie'));
+    }
 }
 ?>

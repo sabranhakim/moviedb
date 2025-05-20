@@ -1,39 +1,38 @@
 <header class="bg-black text-white shadow">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-        <!-- Logo atau Judul -->
-        <a href="{{ route('movies.index') }}" class="text-2xl font-bold tracking-wide text-red-600 hover:text-red-500">
+        <!-- Logo -->
+        <a href="{{ route('movies.index') }}" class="text-2xl font-bold tracking-wide text-white hover:text-yellow-300 transition duration-200">
             MovieDB
         </a>
 
-        <!-- Navigation -->
-        <nav class="space-x-6 hidden md:block">
-            <a href="{{ route('movies.index') }}" class="hover:text-red-500 transition">Home</a>
-            <a href="{{ route('movies.create') }}" class="hover:text-red-500 transition">Add Movie</a>
-            {{-- Tambah link tambahan jika perlu --}}
+        <!-- Navigation (Desktop) -->
+        <nav class="space-x-6 hidden md:flex">
+            <a href="{{ route('movies.index') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Home</a>
+            <a href="{{ route('movies.create') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Add Movie</a>
         </nav>
 
-        <!-- Mobile menu placeholder (opsional) -->
-        <div class="md:hidden">
-            <button id="menu-toggle" class="focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-        </div>
+        <!-- Mobile menu button -->
+        <button id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden focus:outline-none text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
     </div>
 
-    <!-- Optional: Mobile dropdown menu -->
+    <!-- Mobile dropdown menu -->
     <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
-        <a href="{{ route('movies.index') }}" class="block text-white hover:text-red-500">Home</a>
-        <a href="{{ route('movies.create') }}" class="block text-white hover:text-red-500">Add Movie</a>
+        <a href="{{ route('movies.index') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Home</a>
+        <a href="{{ route('movies.create') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Add Movie</a>
     </div>
 
     <script>
-        // Simple JS toggle for mobile menu
-        document.getElementById('menu-toggle')?.addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        const toggleBtn = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        toggleBtn?.addEventListener('click', function () {
+            mobileMenu.classList.toggle('hidden');
+            const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+            toggleBtn.setAttribute('aria-expanded', !expanded);
         });
     </script>
 </header>
