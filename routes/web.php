@@ -3,18 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
 
-Route::resource('movies', MovieController::class);
+Route::get('/', [MovieController::class, 'index'])->name('movies.index');
 
-Route::get('/', [MovieController::class, 'index']);
+Route::get('/movie/{id}/{slug}', [MovieController::class, 'detail'])->name('movies.detail');
 
-Route::get('/movie/{id}/{slug}', [MovieController::class, 'detail']);
+Route::get('/create-movie', [MovieController::class, 'create'])->name('createMovie');
 
-Route::get('dashboard', function() {
-    return view('movies.index');
-});
-
-Route::get('movieList', function() {
-    return view('movies.index');
-});
-
-
+Route::post('/', [MovieController::class, 'store'])->name('store');

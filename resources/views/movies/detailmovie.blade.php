@@ -6,10 +6,10 @@
 <div class="bg-black text-white min-h-screen py-12 px-6">
     <h2 class="text-center text-4xl font-bold text-yellow-400">Detail Movie</h2>
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start mt-5">
-        
+
         <!-- Cover Image -->
         <div>
-            <img src="{{ ($movie->cover_image) }}" alt="{{ $movie->title }}" 
+            <img src="{{ asset('storage/'. $movie->cover_image) }}" alt="{{ $movie->title }}"
                  class="w-full h-auto rounded-lg shadow-lg object-cover">
         </div>
 
@@ -20,13 +20,13 @@
                 <p class="text-sm text-gray-400 mt-1">Slug: <span class="text-gray-500">{{ $movie->slug }}</span></p>
                 <p class="text-sm text-gray-400 mt-1">Year: <span class="text-white">{{ $movie->year }}</span></p>
                 <p class="text-sm text-gray-400 mt-1">
-                    Category: 
+                    Category:
                     <span class="text-white">
                         {{ $movie->category->category_name ?? 'Unknown Category' }}
                     </span>
                 </p>
                 <p class="text-sm text-gray-400 mt-1">
-                    Actors: 
+                    Actors:
                     <span class="text-white">
                         {{ $movie->actors }}
                     </span>

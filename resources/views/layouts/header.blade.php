@@ -8,7 +8,7 @@
         <!-- Navigation (Desktop) -->
         <nav class="space-x-6 hidden md:flex">
             <a href="{{ route('movies.index') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Home</a>
-            <a href="{{ route('movies.create') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Add Movie</a>
+            <a href="{{ route('createMovie') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Add Movie</a>
         </nav>
 
         <!-- Mobile menu button -->
@@ -22,7 +22,7 @@
     <!-- Mobile dropdown menu -->
     <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
         <a href="{{ route('movies.index') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Home</a>
-        <a href="{{ route('movies.create') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Add Movie</a>
+        <a href="{{ route('createMovie') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Add Movie</a>
     </div>
 
     <script>
