@@ -5,11 +5,26 @@
             MovieDB
         </a>
 
-        <!-- Navigation (Desktop) -->
-        <nav class="space-x-6 hidden md:flex">
-            <a href="{{ route('movies.index') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Home</a>
-            <a href="{{ route('createMovie') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Add Movie</a>
-        </nav>
+        @auth
+            <!-- Username -->
+            <a href="#" class="text-2xl font-bold tracking-wide text-white">
+                {{ Auth::user()->name }}
+            </a>
+
+            <!-- Navigation (Desktop) -->
+            <nav class="space-x-6 hidden md:flex items-center">
+                <a href="{{ route('movies.index') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Home</a>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="font-bold hover:text-red-700 transition duration-150">Logout</button>
+                </form>
+            </nav>
+        @else
+            <!-- Navigation (Desktop) for Guest -->
+            <nav class="space-x-6 hidden md:flex items-center">
+                <a href="{{ route('login') }}" class="font-bold hover:text-green-400 transition duration-200">Login</a>
+            </nav>
+        @endauth
 
         <!-- Mobile menu button -->
         <button id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden focus:outline-none text-white">
@@ -19,10 +34,18 @@
         </button>
     </div>
 
-    <!-- Mobile dropdown menu -->
+    <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
-        <a href="{{ route('movies.index') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Home</a>
-        <a href="{{ route('createMovie') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Add Movie</a>
+        @auth
+            <a href="{{ route('movies.index') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Home</a>
+            <a href="{{ route('createMovie') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Add Movie</a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Logout</button>
+            </form>
+        @else
+            <a href="{{ route('login') }}" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Login</a>
+        @endauth
     </div>
 
     <script>
