@@ -20,7 +20,7 @@
             @auth
                 <div class="mb-6 text-right">
                     <a href="{{ route('createMovie') }}"
-                       class="inline-block bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 py-2 rounded shadow transition duration-200">
+                    class="inline-block bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 py-2 rounded shadow transition duration-200">
                         + Add Movie
                     </a>
                 </div>
@@ -72,5 +72,4 @@
 
         </div>
     </div>
-    {{ movie->links() }}
 @endsection

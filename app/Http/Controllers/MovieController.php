@@ -7,6 +7,7 @@ use App\Models\Movie;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class MovieController extends Controller
 {
@@ -16,6 +17,16 @@ class MovieController extends Controller
         $favoriteMovies = Movie::latest()->take(10)->get();
 
         return view('movies.index', compact('topMovies', 'favoriteMovies'));
+    }
+
+    public function listMovie()
+    {
+        if (Gate::denies('listMovie')) {
+            abort(403);
+        }
+
+        $movies = Movie::all();
+        return view('movies.listMovie', compact('movies'));
     }
 
     public function create()
