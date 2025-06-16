@@ -19,7 +19,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/listMovie', [MovieController::class, 'listMovie'])
-    ->middleware(['auth', 'can:listMovie'])
-    ->name('listMovie');
+Route::get('/listMovie', [MovieController::class, 'listMovie'])->name('listMovie');
 
+Route::get('/editMovie/{movie}', [MovieController::class, 'editMovie'])->name('editMovie')->middleware('auth', RoleAdmin::class);
+Route::put('/editMovie/{movie}', [MovieController::class, 'updateMovie'])->name('movies.update')->middleware('auth', RoleAdmin::class);
+
+Route::delete('/deleteMovie/{movie}', [MovieController::class, 'delete'])->name('deleteMovie')->middleware('auth', RoleAdmin::class);

@@ -2,7 +2,16 @@
 
 @section('content')
     <div class="bg-black text-white min-h-screen py-8 px-4">
-        <div class="max-w-7xl mx-auto overflow-x-auto rounded-lg shadow-lg bg-zinc-900">
+        <div class="max-w-7xl mx-auto overflow-x-auto rounded-lg shadow-lg ">
+            {{-- Add Movie Button --}}
+            @auth
+                <div class="mb-6 text-right">
+                    <a href="{{ route('createMovie') }}"
+                    class="inline-block bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 py-2 rounded shadow transition duration-200">
+                        + Add Movie
+                    </a>
+                </div>
+            @endauth
             <table class="min-w-full divide-y divide-gray-700 text-sm text-left text-white">
                 <thead class="bg-zinc-800 text-xs uppercase text-yellow-400">
                     <tr>
@@ -26,7 +35,7 @@
                         <td class="px-4 py-2 max-w-xs truncate align-middle" title="{{ $movie->synopsis }}">
                             {{ \Illuminate\Support\Str::limit($movie->synopsis, 50) }}
                         </td>
-                        <td class="px-4 py-2 align-middle">{{ $movie->category->name ?? 'N/A' }}</td>
+                        <td class="px-4 py-2 align-middle">{{ $movie->category->category_name ?? 'N/A' }}</td>
                         <td class="px-4 py-2 align-middle">{{ $movie->year }}</td>
                         <td class="px-4 py-2 align-middle">{{ $movie->actors }}</td>
                         <td class="px-4 py-2 align-middle">
@@ -38,11 +47,11 @@
                             @endif
                         </td>
                         <td class="px-4 py-2 align-middle space-x-3 whitespace-nowrap">
-                            <a href="/editMovie/{id}/"
+                            <a href="{{ route('editMovie', $movie->id) }}"
                                class="text-yellow-400 hover:text-yellow-300 font-semibold">
                                Edit
                             </a>
-                            <form action="/deleteMovie/{id}/" method="POST" class="inline">
+                            <form action="{{ route('deleteMovie', $movie->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"

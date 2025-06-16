@@ -21,10 +21,6 @@ class MovieController extends Controller
 
     public function listMovie()
     {
-        if (Gate::denies('listMovie')) {
-            abort(403);
-        }
-
         $movies = Movie::all();
         return view('movies.listMovie', compact('movies'));
     }
@@ -76,40 +72,39 @@ class MovieController extends Controller
         return redirect('/')->with('success', 'Movie saved successfully');
     }
 
-    public function edit(Movie $movie)
+    public function editMovie(Movie $movie)
     {
         $categories = Category::all();
         return view('movies.edit', compact('movie', 'categories'));
     }
 
-    public function update(Request $request, Movie $movie)
+    public function updateMovie(Request $request, Movie $movie)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:movies,slug,' . $movie->id,
             'synopsis' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
-            'year' => 'required|digits:4|integer',
+            'year' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
             'actors' => 'nullable|string',
-            'cover_image' => 'nullable|string',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
+        $validated['slug'] = Str::slug($request->title);
+
         if ($request->hasFile('cover_image')) {
-            // Optional: delete old file
-            $file = $request->file('cover_image');
-            $path = $file->store('covers', 'public');
-            $validated['cover_image'] = $path;
+            $validated['cover_image'] = $request->file('cover_image')->store('covers', 'public');
         }
 
-        $movie->update($request->all());
+        $movie->update($validated);
+
 
         return redirect()->route('movies.index')->with('success', 'Movie updated.');
     }
 
-    public function destroy(Movie $movie)
+    public function delete(Movie $movie)
     {
         $movie->delete();
-        return redirect()->route('movies.index')->with('success', 'Movie deleted.');
+        return redirect()->route('listMovie')->with('success', 'Movie deleted.');
     }
 
     public function detail($id, $slug)

@@ -16,23 +16,13 @@
                 </div>
             @endif
 
-            {{-- Add Movie Button --}}
-            @auth
-                <div class="mb-6 text-right">
-                    <a href="{{ route('createMovie') }}"
-                    class="inline-block bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 py-2 rounded shadow transition duration-200">
-                        + Add Movie
-                    </a>
-                </div>
-            @endauth
-
             <!-- Section: Top 10 -->
             <div class="mb-8">
                 <h2 class="text-xl font-bold text-yellow-400 mb-6">🔥 Top 10 on IMDb this week</h2>
 
                 <!-- Grid 2 Columns -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    @foreach ($topMovies as $index => $movie)
+                    @foreach ($favoriteMovies as $index => $movie)
                         <div class="bg-zinc-900 rounded-lg shadow-md flex flex-col md:flex-row overflow-hidden">
                             <!-- Cover Image -->
                             <div class="relative md:w-1/3">

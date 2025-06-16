@@ -16,12 +16,10 @@
             <nav class="space-x-6 hidden md:flex items-center">
                 <a href="{{ route('movies.index') }}"
                     class="font-semibold hover:text-yellow-300 transition duration-200">Home</a>
-                <a href="{{ route('createMovie') }}" class="font-semibold hover:text-yellow-300 transition duration-200">Add
+
+                <a href="{{ route('listMovie') }}" class="font-semibold hover:text-yellow-300 transition duration-200">List
                     Movie</a>
-                @can('listMovie')
-                    <a href="{{ route('listMovie') }}" class="font-semibold hover:text-yellow-300 transition duration-200">List
-                        Movie</a>
-                @endcan
+
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
                     <button type="submit" class="font-bold hover:text-red-700 transition duration-150">Logout</button>
@@ -50,10 +48,11 @@
                 class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Home</a>
             <a href="{{ route('createMovie') }}"
                 class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Add Movie</a>
-            <form action="{{ route('logout') }}" method="POST">
+            <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit"
-                    class="block font-semibold text-white hover:text-yellow-300 transition duration-200">Logout</button>
+                <button type="button" class="block font-semibold text-white hover:text-yellow-300 transition duration-200">
+                    Logout
+                </button>
             </form>
         @else
             <a href="{{ route('login') }}"
