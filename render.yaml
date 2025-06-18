@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: moviedb
+    env: php
+    plan: free
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan config:cache
+      php artisan migrate --force
+    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: moviedb-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: moviedb-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: moviedb-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: moviedb-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: moviedb-db
+          property: password
+databases:
+  - name: moviedb-db
+    plan: free
